@@ -1,90 +1,112 @@
-#Prvi
 '''
-x=float(input())
-y=float(input())
-rez=x*y
-print("Radni sati: ",x)
-print("eura/h: ",y)
-print("Ukupno:",rez)
+print("Unesi broj radnih sati: ")
+radniSati=float(input())
+print("Unesi satnicu: ")
+satnica=float(input())
+ukupno=radniSati*satnica
+print("Ukupno: ",ukupno," eura")
 
 def total_euro(x,y):
     return x*y
 
-rez2=total_euro(x,y)
-print("Ukupno funkcija: ",rez2)
+print("ukupno preko funkcije: ",total_euro(radniSati,satnica)," eura")
 '''
+
 #Drugi
 '''
 try:
-    score = float(input("Unesite ocjenu između 0.0 i 1.0: "))
-
-    if 0.0 <= score <= 1.0:
-        if score >= 0.9:
-            grade = 'A'
-        elif score >= 0.8:
-            grade = 'B'
-        elif score >= 0.7:
-            grade = 'C'
-        elif score >= 0.6:
-            grade = 'D'
+    ocjena=float(input())
+    if 0.0 <= ocjena <=1.0 :
+        if ocjena >= 0.9 :
+            kategorija='A'
+        elif ocjena>=0.8:
+            kategorija='B'
+        elif ocjena>=0.7:
+            kategorija='C'
+        elif ocjena>=0.6:
+            kategorija='D'
         else:
-            grade = 'F'
-        print("Ocjena je: ",grade)
+            kategorija='F'
+        print(kategorija)
     else:
-        print("Broj mora biti u intervalu od 0.0 do 1.0.")
-
-except ValueError:
-    print("Greška: Unesite brojčanu vrijednost.")
-
+        print("Broj nije u intervalu")
+except:
+    print("Niste unijeli broj")
 '''
-#Treci
+#treci
 '''
-numbers = []
+brojevi=[]
 
 while True:
-    entry = input("Unesite broj ili 'Done' za završetak: ")
-    
-    if entry.lower() == 'done':
-        break
-    
-    try:
-        number = float(entry)
-        numbers.append(number)
-    except ValueError:
-        print("Neispravan unos, molimo unesite broj ili 'Done'.")
+    unos=input("Unesite broj ili 'done': ")
 
-if numbers:
-    print(f"Unijeli ste ukupno {len(numbers)} brojeva.")
-    print(f"Srednja vrijednost: {sum(numbers) / len(numbers)}")
-    print(f"Minimalna vrijednost: {min(numbers)}")
-    print(f"Maksimalna vrijednost: {max(numbers)}")
-    numbers.sort()
-    print("Sortirana lista brojeva:", numbers)
+    if unos.lower()=='done':
+        break
+
+    try:
+        broj=float(unos)
+        brojevi.append(broj)
+
+    except:
+        print("neispravan unos")
+
+if brojevi:
+    print("unjeli ste ",len(brojevi)," brojeva.")
+    print("Srednja vrijednost unesenih brojeva je: ",sum(brojevi)/len(brojevi))
+    print("maksimalna vrijednost: ",max(brojevi))
+    print("minimalna vrijednost: ",min(brojevi))
+    brojevi.sort()
+    print(brojevi)
 else:
-    print("Niste unijeli nijedan broj.")
+    print("prazna lista")
 '''
 
-#Cetvrti
-# Učitavanje datoteke i stvaranje rječnika
-word_count = {}
+#cetvrti
+rjecnik={}
+''''
+fhand=open("C:/Users/student/Desktop/LV1 Uvod u programski jezik Python-20240308/song.txt")
+for line in fhand :
+    words = line . split ()
+    for word in words:
+        rijec=word.lower()
+        if rijec in rjecnik:
+            rjecnik[rijec]+=1
+        else:
+            rjecnik[rijec]=1
+rijeciJednom=[word for word,count in rjecnik.items() if count==1]
 
-try:
-    with open('C:/Users/lukas/Desktop/OSU/song.txt', 'r') as file:
-        for line in file:
-            words = line.split()
-            for word in words:
-                cleaned_word = word.lower().strip(".,!?\"'")
-                if cleaned_word in word_count:
-                    word_count[cleaned_word] += 1
-                else:
-                    word_count[cleaned_word] = 1
-except FileNotFoundError:
-    print("Datoteka 'song.txt' nije pronađena.")
+print("Broj rjeci koje se pojavljuju jednom: ",len(rijeciJednom))
+print(rijeciJednom)
 
-# Pronalaženje i ispisivanje riječi koje se pojavljuju samo jednom
-single_occurrence_words = [word for word, count in word_count.items() if count == 1]
+fhand . close ()
+'''
 
-print(f"Broj riječi koje se pojavljuju samo jednom: {len(single_occurrence_words)}")
-print("Riječi koje se pojavljuju samo jednom:", single_occurrence_words)
+#peti
+counterHam=0
+counterSpam=0
+zavrsavaUsklicnikom=0
+duzinaHam=0
+duzinaSpam=0
+fhand=open("C:/Users/student/Desktop/LV1 Uvod u programski jezik Python-20240308/SMSSpamCollection.txt")
+for line in fhand:
+    line=line.rstrip()
+    words=line.split()
+    #A
+    if line.startswith('ham'):
+        counterHam+=1
+    else:
+        counterSpam+=1
 
 
+    if line.startswith('ham'):
+        duzinaHam+=len(words)
+    else:
+        duzinaSpam+=len(words)
+
+    #B
+    if line.endswith('!') and line.startswith('spam'):
+        zavrsavaUsklicnikom+=1
+
+print(zavrsavaUsklicnikom)
+print("prosjecan broj u hamu: ",round(duzinaHam/counterHam))
+print("prosjecan broj u spamu: ",round(duzinaSpam/counterSpam))
